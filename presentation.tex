@@ -137,12 +137,12 @@
 
         class HashMapTest {
           @Test
-          void testEmptyGet() {
+          void testLeeresGet() {
             HashMap<String, String> map = new HashMap<>();
-            String str = list.get("non existent key");
-            Supplier<String> errorSupplier =
-              () -> String.format("found '%s'", str);
-            assertNull(str, errorSupplier);
+            String str = map.get("nicht-existenter schlüssel");
+            Supplier<String> fehlerSupplier =
+              () -> String.format("'%s' gefunden", str);
+            assertNull(str, fehlerSupplier);
           }
         }
       \end{lstlisting}
