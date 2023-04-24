@@ -177,13 +177,12 @@
         import org.junit.jupiter.api.DisplayName;
         import org.junit.jupiter.api.Test;
 
-        @DisplayName("A special test case")
-        class DisplayNameDemo {
+        @DisplayName("Ein spezieller Testfall")
+        class DisplayNameTest {
 
           @Test
-          @DisplayName("Custom test name containing spaces")
-          void testWithDisplayNameContainingSpaces() {
-          }
+          @DisplayName("Eigener Testname, der Leerzeichen enthält")
+          void testMitDisplayNameDerLeerzeichenEnthählt() { }
         }
       \end{lstlisting}
     \end{frame}
@@ -199,7 +198,7 @@
         @Test
         void testAssertions() {
           assertEquals(2, 1+1);
-          assertNotNull(obj);
+          assertNotNull(new Object());
         }
       \end{lstlisting}
     \end{frame}
@@ -227,15 +226,15 @@
       \begin{lstlisting}[gobble=8]
         import static org.junit.jupiter.api.Assumptions.assumeTrue;
         @Test
-        void testOnlyOnCiServer() {
+        void testNurAufCLIServer() {
           assumeTrue("CI".equals(System.getenv("ENV")));
-          // remainder of test
+          // Rest des Tests
         }
         @Test
-        void testOnlyOnDeveloperWorkstation() {
+        void testNurAufEntwicklungsUmgebungen() {
           assumeTrue("DEV".equals(System.getenv("ENV")),
-            () -> "Aborting test: not on developer workstation");
-          // remainder of test
+            () -> "Test abbrechen: keine Entwicklungs-Umgebung");
+          // Rest des Tests
         }
       \end{lstlisting}
     \end{frame}
@@ -295,12 +294,12 @@
 
         @Test
         void reportValue(TestReporter testReporter) {
-          testReporter.publishEntry("a status message");
-          testReporter.publishEntry("a key", "a value");
-          Map<String, String> values = new HashMap<>();
-          values.put("user name", "dl38");
-          values.put("award year", "1974");
-          testReporter.publishEntry(values);
+          testReporter.publishEntry("eine Statusmeldung");
+          testReporter.publishEntry("ein Schlüssel", "ein Wert");
+          Map<String, String> werte = new HashMap<>();
+          values.put("Benutzername", "benutzername");
+          values.put("Geburtsjahr", "1974");
+          testReporter.publishEntry(werte);
         }
       \end{lstlisting}
     \end{frame}
@@ -313,8 +312,8 @@
       \end{itemize}
       \begin{lstlisting}[gobble=8]
         @RepeatedTest(10) 
-        void repeatedTest() {
-          // execute repeatedTest 10 times
+        void wiederholenderTest() {
+          // führt wiederholenderTest 10 Mal aus
         }
       \end{lstlisting}
     \end{frame}
@@ -329,9 +328,9 @@
       \end{itemize}
       \begin{lstlisting}[gobble=8]
         @ParameterizedTest
-        @ValueSource(strings = {"racecar", "radar", "able was I ere I saw elba"})
-        void palindromes(String candidate) {
-          assertTrue(StringUtils.isPalindrome(candidate));
+        @ValueSource(strings = {"bob", "radar"})
+        void palindromes(String kandidat) {
+          assertTrue(StringUtils.isPalindrome(kandidat));
         }
       \end{lstlisting}
     \end{frame}
