@@ -47,13 +47,12 @@
 \beamertemplatenavigationsymbolsempty 
 \begin{document}
 	\titlegraphic {
-        % TODO: Comment this in
-		% \begin{tikzpicture}[overlay,remember picture]
-		% 	\node[left=0.4cm, below=0.3cm, behind path] at (current page.30) {
-  %               \includegraphics[scale=0.4]{logo-hochschule-bochum-bo.pdf}};
-		% 	\node[left=2.1cm, below=0.3cm] at (current page.30)
-  %       {\includegraphics[scale=0.4]{logo-hochschule-bochum-text.pdf}};
-		% \end{tikzpicture}
+		\begin{tikzpicture}[overlay,remember picture]
+			\node[left=0.4cm, below=0.3cm, behind path] at (current page.30) {
+                \includegraphics[scale=0.4]{logo-hochschule-bochum-bo.pdf}};
+			\node[left=2.1cm, below=0.3cm] at (current page.30)
+        {\includegraphics[scale=0.4]{logo-hochschule-bochum-text.pdf}};
+		\end{tikzpicture}
 	}
 	\frame{\maketitle}
 
