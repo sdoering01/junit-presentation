@@ -30,7 +30,8 @@
 	breakatwhitespace=false,
 	captionpos=b,
   morekeywords={@Test, @DisplayName, @Tag, @RepeatedTest, @BeforEach,
-  @AfterEach, @TestTemplate, @ExtendWith, @ParameterizedTest, @ValueSource}
+  @AfterEach, @TestTemplate, @ExtendWith, @ParameterizedTest,
+  @ValueSource, @Execution, @ResourceLock}
 }
 \lstset{style=standardStyle}
 
@@ -317,30 +318,7 @@
         }
       \end{lstlisting}
     \end{frame}
-    \begin{frame}[fragile]{Test-Templates}
-      \begin{itemize}
-        \item Kein regulärer Testfall, eher eine Vorlage für Testfälle
-        \item Mehrfacher Aufruf, durch einen registrierten Anbieter, wie ein
-          normaler \lstinline|@Test|
-        \item Verbindung mit der
-          \lstinline|TestTemplateInvocationContextProvider|
-      \end{itemize}
-      \begin{lstlisting}[gobble=8]
-        final List<String> fruits =
-          Arrays.asList("apple", "bananna", "lemon");
 
-        @TestTemplate
-        @ExtendWith(MyTestTemplateInvocationContextProvider.class)
-        void testTemplate(String fruit) {
-          assertTrue(fruits.contains(fruit));
-        }
-
-        public class MyTestTemplateInvocationContextProvider implements
-        TestTemplateInvocationContextProvider { ... }
-      \end{lstlisting}
-    \end{frame}
-
-  \section{Parametrisierte Tests}
     \begin{frame}[fragile]{Parametrisierte Tests}
       \begin{itemize}
         \item Test mehrfach mit verschiedenen Werten ausführen
@@ -357,14 +335,43 @@
         }
       \end{lstlisting}
     \end{frame}
+    \begin{frame}[fragile]{Test-Templates}
+      \begin{itemize}
+        \item Kein regulärer Testfall, eher eine Vorlage für Testfälle
+        \item Mehrfacher Aufruf, durch einen registrierten Anbieter, wie ein
+          normaler \lstinline|@Test|
+        \item Verbindung mit der
+          \lstinline|TestTemplateInvocationContextProvider|
+        \item Repeated Test und Parametrisierte Tests sind spezielle
+          Test-Templates
+      \end{itemize}
+    \end{frame}
 
   \section{Paralleles Testen}
-    \begin{frame}{Paralleles Testen}
+    \begin{frame}[fragile]{Paralleles Testen}
       \begin{itemize}
         \item Experimentelle Funktion seit JUnit 5.3
-        \item \lstinline|junit.jupiter.execution.parallel.enabled = true|
-        \item \lstinline|junit.jupiter.execution.parallel.mode = concurrent|
+        \item \lstinline[keywordstyle=\texttt]|junit.jupiter.execution.parallel.enabled = true|
+        \item \lstinline[keywordstyle=\texttt]|junit.jupiter.execution.parallel.mode = concurrent|
+        \item \lstinline[keywordstyle=\texttt]|junit.jupiter.execution.parallel.classes.default = concurrent|
+        \item Concurrent-Mode auch über Annotation einstellbar
+        \item Thread-Sicherheit über \lstinline|@ResourceLock|
       \end{itemize}
+      \begin{lstlisting}[gobble=8]
+        @Execution(CONCURRENT)
+        class GeteilteRessourceTest {
+          @Test
+          @ResourceLock(value = SYSTEM_PROPERTIES, mode = READ) 
+          void getGeteilteRessource() {
+            assertNull(System.getProperty("null"));
+          }
+      \end{lstlisting}
+    \end{frame}
+    \begin{frame}[c]{Parallele Test-Modi}
+      \centering
+      \begin{picture}(\textwidth, \textheight)
+        \put(40,29){{\includegraphics[scale=0.49]{concurrent-test-modes.pdf}}}
+      \end{picture}
     \end{frame}
 
   \section{Fazit}
@@ -383,6 +390,8 @@
       \begin{itemize}
         \item \url{https://junit.org/junit5/}
         \item \url{https://junit.org/junit5/docs/current/user-guide}
+        \item
+          \url{https://junit.org/junit5/docs/current/user-guide/images/writing-tests_execution_mode.svg}
         \item
           \url{http://kleuker.iui.hs-osnabrueck.de/CSI/Methoden/kombiquAequivalenzklassenanalyse.html}
         \item
