@@ -14,7 +14,6 @@ class SehenswürdigkeitenListeTest {
 		Sehenswürdigkeit sw1 = new Sehenswürdigkeit("Dom", new Uhrzeit("12:30"));
 		Sehenswürdigkeit sw2 = new Sehenswürdigkeit("Rathaus", new Uhrzeit("11:00"));
 		Sehenswürdigkeit sw3 = new Sehenswürdigkeit("Schlossgarten", new Uhrzeit("11:30"));
-		Sehenswürdigkeit sw4 = new Sehenswürdigkeit("Rathaus", new Uhrzeit("12:00"));
 		SehenswürdigkeitenListe swl = new SehenswürdigkeitenListe();
 		swl.fügeSehenswürdigkeitHinzu(sw1, sw2, sw3);
 		List<Sehenswürdigkeit> liste = swl.getListeGeordnet();
